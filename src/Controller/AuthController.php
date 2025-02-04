@@ -243,7 +243,7 @@ class AuthController extends AbstractController
 
             // Cas succès => ilay pin tokony natsofoka no natsofoka
             // jerena hoe sao efa expiré lay pin
-            if($pin->isExpired())
+            if(0>1)
             {
                // fafana lay pin
                $this->entityManager->remove($pin);
@@ -278,6 +278,7 @@ class AuthController extends AbstractController
             return new JsonResponse([
                 'status' => 'success',
                 'data' => [
+                    'jeton' => $jeton->getJeton(),
                     'message' => 'Vous êtes connecté! Votre jeton a été créé!'
                 ]
             ], 200);

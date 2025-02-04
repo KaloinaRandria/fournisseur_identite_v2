@@ -17,6 +17,7 @@ return [
         '/authentification' => [[['_route' => 'authentification', '_controller' => 'App\\Controller\\AuthController::authentification'], null, ['POST' => 0], null, false, false, null]],
         '/confirmPin' => [[['_route' => 'confirmPin', '_controller' => 'App\\Controller\\AuthController::confirmPin'], null, ['POST' => 0], null, false, false, null]],
         '/inscription' => [[['_route' => 'inscription', '_controller' => 'App\\Controller\\InscriptionController::inscription'], null, ['POST' => 0], null, false, false, null]],
+        '/student' => [[['_route' => 'app_student', '_controller' => 'App\\Controller\\StudentController::index'], null, null, null, false, false, null]],
         '/utilisateurToken/modifier-nom' => [[['_route' => 'modifier_nom', '_controller' => 'App\\Controller\\UtilisateurTokenController::modifierNom'], null, ['POST' => 0], null, false, false, null]],
         '/utilisateurToken/modifier-mdp' => [[['_route' => 'modifier_mdp', '_controller' => 'App\\Controller\\UtilisateurTokenController::modifierMdp'], null, ['POST' => 0], null, false, false, null]],
         '/utilisateurToken/modifier-date-naissance' => [[['_route' => 'modifier_date_naissance', '_controller' => 'App\\Controller\\UtilisateurTokenController::modifierDateNaissance'], null, ['POST' => 0], null, false, false, null]],
