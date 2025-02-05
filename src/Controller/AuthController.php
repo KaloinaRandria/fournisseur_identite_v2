@@ -174,6 +174,8 @@ class AuthController extends AbstractController
             }
 
             // si le mot de passe est correcte
+            // verifier s'il y a encore un jeton non expiré pour l'utilisateur
+            
             // generer un pin 
             $pin = new Pin($duree_pin,$utilisateur);
             $this->entityManager->persist($pin);
