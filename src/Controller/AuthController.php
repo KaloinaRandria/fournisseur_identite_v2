@@ -36,6 +36,46 @@ class AuthController extends AbstractController
         $this->entityManager = $entityManager; // Initialiser EntityManagerInterface
     }
 
+    #[Route('/checkAuth', name: 'checkAuth', methods: ['GET'])]
+    public function estAuth(Request $request): JsonResponse
+    {
+        // Récupérer le jeton depuis l'en-tête Authorization ou en paramètre GET
+        $jeton = $request->headers->get('Authorization') ?: $request->query->get('jeton');
+
+        if (!$jeton) {
+            return new JsonResponse([
+                'valid' => false,
+                'message' => 'Aucun jeton fourni'
+            ], 400);
+        }
+
+        // Rechercher le jeton dans la base de données
+        $jetonAuth = $this->entityManager
+            ->getRepository(JetonAuthentification::class)
+            ->findOneBy(['jeton' => $jeton]);
+
+        if (!$jetonAuth) {
+            return new JsonResponse([
+                'valid' => false,
+                'message' => 'Jeton introuvable'
+            ], 404);
+        }
+
+        // Vérifier si le jeton est expiré en utilisant la méthode isExpired()
+        if ($jetonAuth->isExpired()) {
+            return new JsonResponse([
+                'valid' => false,
+                'message' => 'Jeton expiré'
+            ], 401);
+        }
+
+        return new JsonResponse([
+            'valid' => true,
+            'message' => 'Jeton valide'
+        ], 200);
+    }
+
+
     #[Route('/authentification', name: 'authentification', methods: ['POST'])]
     public function authentification(Request $request) : JsonResponse
     {
@@ -134,6 +174,8 @@ class AuthController extends AbstractController
             }
 
             // si le mot de passe est correcte
+            // verifier s'il y a encore un jeton non expiré pour l'utilisateur
+            
             // generer un pin 
             $pin = new Pin($duree_pin,$utilisateur);
             $this->entityManager->persist($pin);

@@ -50,6 +50,14 @@ class ExpirationUtil
         return $this;
     }
 
+    public function setDateExpirationFromNow(): self
+    {
+        $this->dateExpiration = new \DateTime();  // La date actuelle
+        return $this;
+    }
+
+    
+
     /**
      * Calcule la date d'expiration en fonction de la durée en heures.
      *

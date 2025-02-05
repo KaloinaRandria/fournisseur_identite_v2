@@ -27,4 +27,21 @@ class AuthService
        }
 
     }
+
+
+    public function estEncoreConnecte(string $utilisateur): bool
+    {
+        // Récupérer le dernier jeton d'authentification
+        $jetonAuth = $this->jetonAuthentificationRepository->findOneBy(
+            ['utilisateur' => $utilisateur],
+            ['dateCreation' => 'DESC'] // Trié du plus récent au plus ancien
+        );
+
+        if (!$jetonAuth) {
+            return false; // Aucun jeton trouvé, donc non valide
+        }
+
+        // Vérifier si le jeton est expiré
+        return !$jetonAuth->isExpired(); // Renvoie true si valide, false si expiré
+    }
 }
