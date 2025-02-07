@@ -36,6 +36,9 @@ class AuthController extends AbstractController
         $this->entityManager = $entityManager; // Initialiser EntityManagerInterface
     }
 
+
+    
+
     #[Route('/checkAuth', name: 'checkAuth', methods: ['GET'])]
     public function estAuth(Request $request): JsonResponse
     {
